@@ -25,7 +25,13 @@ DATA_PATH = PATH.joinpath("../data").resolve()
 df = pd.read_csv(DATA_PATH.joinpath('final_2021_schedule.csv'))
 standing = pd.read_csv(DATA_PATH.joinpath('2021_standings.csv'))
 
-layout = dbc.Container([
+PATH = pathlib.Path(__file__).parent
+DATA_PATH = PATH.joinpath("../data").resolve()
+df = pd.read_csv(DATA_PATH.joinpath('final_2021_schedule.csv'))
+standing = pd.read_csv(DATA_PATH.joinpath('2021_standings.csv'))
+standing['W/L%'] = pd.to_numeric(standing['W/L%']).round(3)
+
+app.layout = dbc.Container([
 	dbc.Row([
 		dbc.Col([
 			html.H1(children='NBA 2021 Season Weekly Schedule',
@@ -48,8 +54,33 @@ layout = dbc.Container([
 		dbc.Col([
 			dcc.Graph(id='game-count', figure={})
 		], width={'size':6})
-	])
+	]),
+	html.Br(),
+	html.Br(),
+	html.H4(children='NBA Season Standings'),
+	html.Hr(),
+	dbc.Row([
+		dbc.Col([
+			html.Div([
+				html.H6(children='Eastern Conference Standings'),
+				dash_table.DataTable(id='east-conf',
+									 columns=[{'name': i, 'id': i} for i in standing.columns],
+									 data=standing.loc[(standing.Conference == 'East')].to_dict('records'))
+			])
+		], width={'size':4, 'offset':0}),
+		dbc.Col([
+			html.Div([
+				html.H6(children='Western Conference Standings'),
+				dash_table.DataTable(id='west-conf',
+									 columns=[{'name':i, 'id':i} for i in standing.columns],
+									 data=standing.loc[(standing.Conference == 'West')].to_dict('records'))
+			])
+		], width={'size':4, 'offset':2})
+	]),
+	html.Br(),
+	html.Br()
 ])
+
 
 @app.callback(
 	Output(component_id='game-count', component_property='figure'),
