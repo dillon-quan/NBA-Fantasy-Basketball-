@@ -1,9 +1,12 @@
+# requires to be refreshed daily since standings change and also the PS/G and PA/G updates daily
+
 import os
 import pathlib
 import pandas as pd
 
 def conference_seed_extract(val):
     return val.split()[-1].strip('()')
+
 def remove_seed(val):
     return ' '.join(val.split()[:-1])
 

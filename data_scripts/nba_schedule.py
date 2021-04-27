@@ -1,3 +1,5 @@
+# does not need to be refreshed daily
+
 import re
 import os
 import pathlib
