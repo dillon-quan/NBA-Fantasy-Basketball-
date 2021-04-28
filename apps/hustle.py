@@ -16,7 +16,7 @@ from app import app
 #data 
 PATH = pathlib.Path(__file__).parent
 DATA_PATH = PATH.joinpath("../data").resolve()
-player_stats = pd.read_csv(DATA_PATH.joinpath("player_stats_2021.csv"))
+player_stats = pd.read_csv(DATA_PATH.joinpath("player_stats.csv"))
 
 cols = ['PLAYER_ID', 'PLAYER_POSITION', 'GP',
        'PTS', 'REB', 'AST', 'BLK', 'STL', 'TOV', 'FG3M', 'FGA', 'FG_PCT',
