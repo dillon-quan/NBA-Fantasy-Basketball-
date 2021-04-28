@@ -86,29 +86,6 @@ layout = dbc.Container([
 								 columns=[{'name': i, 'id': i} for i in columns])
 		])
 	]),
-	html.Br(),
-	html.Br(),
-	html.H4(children='NBA Season Standings'),
-	html.Hr(),
-	dbc.Row([
-		dbc.Col([
-			html.Div([
-				html.H6(children='Eastern Conference Standings'),
-				dash_table.DataTable(id='east-conf',
-									 columns=[{'name': i, 'id': i} for i in standing.columns],
-									 data=standing.loc[(standing.Conference == 'East')].to_dict('records'))
-			])
-		], width={'size': 4, 'offset':0}),
-		dbc.Col([
-			html.Div([
-				html.H6(children='Western Conference Standings'),
-				dash_table.DataTable(id='west-conf',
-									 columns=[{'name':i, 'id':i} for i in standing.columns],
-									 data=standing.loc[(standing.Conference == 'West')].to_dict('records'))
-			])
-		], width={'size': 4, 'offset':4})
-	]),
-	html.Br(),
 	html.Br()
 ])
 
